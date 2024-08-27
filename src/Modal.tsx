@@ -10,7 +10,7 @@ interface MyModalProps {
   modalContent: string;
   showOptionalButton?: boolean;
   optionalButtonText?: string;
-  optionalButtonAction?: () => void;
+  optionalButtonAction?: () => void; 
 }
 
 export default function MyModal({

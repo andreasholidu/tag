@@ -2,8 +2,8 @@ import OpenModalButton from './OpenModalButton';
 
 function App() {
   return (
-    <div className="App flex justify-center p-6">
-      <div className='flex flex-col sm:flex-row shadow p-12 rounded-3xl gap-3 w-full items-center'>
+    <div className="App h-[100vh] flex items-center justify-center m-auto p-6">
+      <div className='flex flex-col sm:flex-row shadow p-12 rounded-3xl gap-3 w-full items-center justify-center'>
         <OpenModalButton
           buttonText="Modal 1"
           titleText="First Modal"
