@@ -1,156 +1,145 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState, useRef, useEffect } from 'react';
+import OpenModalButton from './OpenModalButton';
 
-export default function MyModal() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [showSecondaryTitle, setShowSecondaryTitle] = useState(false);
-  const modalBodyRef = useRef<HTMLDivElement | null>(null);
-
-  const titleText = 'Modal title';
-  const modalContent =
-    '<p>Try to have a simple and clear text description on modals. If possible, avoid using interactive elements that would resize the modal. Make the inner element scrollable if the content is too long.</p> <br/> <p>Also top and bottom paddings of the content can be larger than the sides, depending on the content.</p>';
-
-  function closeModal() {
-    setIsOpen(false);
-    setShowSecondaryTitle(false); // Reset state on close
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (modalBodyRef.current) {
-        const topPosition = modalBodyRef.current.scrollTop;
-        setShowSecondaryTitle(topPosition > 30);
-      }
-    };
-
-    const ref = modalBodyRef.current;
-    if (ref) {
-      ref.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      if (ref) {
-        ref.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, []);
-
+function App() {
   return (
-    <>
-      <div className="fixed inset-0 flex items-center justify-center">
-        <button
-          type="button"
-          onClick={openModal}
-          className="border border-gray-900 px-6 py-3 rounded-xl hover:bg-gray-100 active:bg-gray-200 transition-transform ease-in-out active:scale-95"
-        >
-          Open dialog
-        </button>
-      </div>
+    <div className="App flex justify-center p-6">
+      <div className='flex flex-col sm:flex-row shadow p-12 rounded-3xl gap-3 w-full items-center'>
+        <OpenModalButton
+          buttonText="Modal 1"
+          titleText="First Modal"
+          modalCTAButtonText="Save and close"
+          modalContent="<p>This is the content for the first modal.</p>"
+          showOptionalButton={true}
+          optionalButtonText="Skip"
+          optionalButtonAction={() => alert('First Action Clicked')}
+        />
 
-      <Transition appear show={isOpen} as={Fragment} key="Modal">
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black/30" />
-          </Transition.Child>
+        <OpenModalButton
+          buttonText="Modal 2"
+          modalCTAButtonText="Close"
+          titleText="Second Modal"
+          modalContent="<p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p><p>This is the content for the second modal.</p>"
+          showOptionalButton={false}
+        />
 
-          <div className="fixed inset-0">
-            <div className="flex min-h-full sm:items-center sm:justify-center items-end sm:p-6 pt-6 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-200"
-                enterFrom="opacity-0 scale-98 translate-y-6"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-150"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-98 translate-y-6"
-              >
-                <Dialog.Panel className="w-full sm:max-w-xl transform sm:rounded-3xl rounded-t-3xl bg-white text-left align-middle shadow-xl transition-all overflow-hidden">
-                  {/* Modal header */}
-                  <div
-                    className={`fixed w-full flex justify-between gap-8 px-6 py-5 transition-all duration-150 border-b backdrop-blur bg-white/90 ${
-                      showSecondaryTitle ? 'border-gray-200' : 'border-white'
-                    }`}
-                  >
-                    <button
-                      onClick={closeModal}
-                      className="p-2 -m-2 rounded-full hover:bg-gray-100 active:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 transition-transform ease-in-out active:scale-95 me-auto text-gray-900"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="size-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18 18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-
-                    {/* Secondary title with transition */}
-                    <span
-                      className={`w-full text-center font-semibold text-gray-900 transition-all duration-150 transform ${
-                        showSecondaryTitle
-                          ? 'opacity-100 translate-y-0'
-                          : 'opacity-0 translate-y-2'
-                      }`}
-                    >
-                      {titleText}
-                    </span>
-
-                    <div className="min-w-6"></div>
+        <OpenModalButton
+          buttonText="Modal 3"
+          modalCTAButtonText="Apply filters"
+          titleText="Filters"
+          modalContent='<div class="relative flex flex-col text-gray-700 -m-3">
+          <nav class="flex min-w-[240px] flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+            <div role="button"
+              class="flex items-center w-full p-0 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+              <label htmlFor="vertical-list-react" class="flex items-center w-full px-3 py-2 cursor-pointer">
+                <div class="grid mr-3 place-items-center">
+                  <div class="inline-flex items-center">
+                    <label class="relative flex items-center p-0 rounded-full cursor-pointer" htmlFor="vertical-list-react">
+                      <input id="vertical-list-react" type="checkbox"
+                        class="before:content peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-300 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-gray-900 checked:before:bg-gray-900 hover:before:opacity-0" />
+                      <span
+                        class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor"
+                          stroke="currentColor" stroke-width="1">
+                          <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </span>
+                    </label>
                   </div>
-
-                  {/* Modal body, scrollable */}
-                  <div
-                    ref={modalBodyRef}
-                    className="p-6 pt-20 flex flex-col gap-4 overflow-y-auto max-h-[60vh]"
-                  >
-                    <Dialog.Title
-                      as="h2"
-                      className="text-3xl font-bold text-gray-900"
-                    >
-                      {titleText}
-                    </Dialog.Title>
-
-                    <div
-                      className="content text-gray-900"
-                      dangerouslySetInnerHTML={{ __html: modalContent }}
-                    ></div>
-                  </div>
-
-                  {/* Modal footer, fixed */}
-                  <div className="border-t px-6 py-4 flex justify-end">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-lg border border-transparent bg-[#00809D] px-6 py-3 font-medium text-white hover:bg-[#024251] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00809D] focus-visible:ring-offset-2 transition-transform ease-in-out active:scale-95"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
+                </div>
+                <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                  Pets allowed
+                </p>
+              </label>
             </div>
+            
+            <div role="button"
+            class="flex items-center w-full p-0 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+            <label htmlFor="vertical-list-react" class="flex items-center w-full px-3 py-2 cursor-pointer">
+              <div class="grid mr-3 place-items-center">
+                <div class="inline-flex items-center">
+                  <label class="relative flex items-center p-0 rounded-full cursor-pointer" htmlFor="vertical-list-react">
+                    <input id="vertical-list-react" type="checkbox"
+                      class="before:content peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-300 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-gray-900 checked:before:bg-gray-900 hover:before:opacity-0" />
+                    <span
+                      class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor"
+                        stroke="currentColor" stroke-width="1">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                Holiday home
+              </p>
+            </label>
           </div>
-        </Dialog>
-      </Transition>
-    </>
+
+          <div role="button"
+            class="flex items-center w-full p-0 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+            <label htmlFor="vertical-list-react" class="flex items-center w-full px-3 py-2 cursor-pointer">
+              <div class="grid mr-3 place-items-center">
+                <div class="inline-flex items-center">
+                  <label class="relative flex items-center p-0 rounded-full cursor-pointer" htmlFor="vertical-list-react">
+                    <input id="vertical-list-react" type="checkbox"
+                      class="before:content peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-300 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-gray-900 checked:before:bg-gray-900 hover:before:opacity-0" />
+                    <span
+                      class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor"
+                        stroke="currentColor" stroke-width="1">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                WiFi
+              </p>
+            </label>
+          </div>
+
+          <div role="button"
+            class="flex items-center w-full p-0 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+            <label htmlFor="vertical-list-react" class="flex items-center w-full px-3 py-2 cursor-pointer">
+              <div class="grid mr-3 place-items-center">
+                <div class="inline-flex items-center">
+                  <label class="relative flex items-center p-0 rounded-full cursor-pointer" htmlFor="vertical-list-react">
+                    <input id="vertical-list-react" type="checkbox"
+                      class="before:content peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-300 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-gray-900 checked:before:bg-gray-900 hover:before:opacity-0" />
+                    <span
+                      class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor"
+                        stroke="currentColor" stroke-width="1">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                Balcony/Terrace 
+              </p>
+            </label>
+          </div>
+          </nav>
+        </div>'
+          showOptionalButton={true}
+          optionalButtonText="Cool"
+          optionalButtonAction={() => alert('Third Action Clicked')}
+        />
+      </div>
+    </div>
   );
 }
+
+export default App;
