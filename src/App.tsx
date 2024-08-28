@@ -2,10 +2,14 @@ import OpenModalButton from './OpenModalButton';
 
 function App() {
   return (
-    <div className="App h-[100vh] flex items-center justify-center m-auto p-6">
-      <div className='flex flex-col sm:flex-row shadow p-12 rounded-3xl gap-3 w-full items-center justify-center'>
+    <div className="App container mx-auto px-4">
+      <div className='h-[100vh] flex items-center justify-center m-auto'>
+      <div className='flex flex-col shadow-xl md:p-12 p-8 rounded-3xl gap-3 lg:w-1/2 w-full'>
+        <span className='text-2xl font-semibold'>Modals</span>
+        <span className='text-lg text-gray-600'>Choose your modal</span>
+        <div className='flex flex-col sm:flex-row gap-3 mt-4'>
         <OpenModalButton
-          buttonText="Modal 1"
+          buttonText="Small with secondary"
           titleText="First Modal"
           modalCTAButtonText="Save and close"
           modalContent='<p>Hello this is the first modal content.</p>'
@@ -15,9 +19,9 @@ function App() {
         />
 
         <OpenModalButton
-          buttonText="Modal 2"
+          buttonText="Lots of content"
           modalCTAButtonText="Close"
-          titleText="Second Modal"
+          titleText="Lots of lorem"
           modalContent='<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
 
           Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.   
@@ -33,7 +37,7 @@ function App() {
         />
 
         <OpenModalButton
-          buttonText="Modal 3"
+          buttonText="Filters"
           modalCTAButtonText="Apply filters"
           titleText="Filters"
           modalContent='<div class="relative flex flex-col text-gray-700 -m-3">
@@ -144,9 +148,13 @@ function App() {
           </nav>
         </div>'
           showOptionalButton={true}
-          optionalButtonText="Cool"
+          optionalButtonText="Reset"
           optionalButtonAction={() => alert('Third Action Clicked')}
         />
+        </div>
+        
+      </div>
+
       </div>
     </div>
   );

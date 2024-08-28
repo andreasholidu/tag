@@ -10,7 +10,7 @@ interface MyModalProps {
   modalContent: string;
   showOptionalButton?: boolean;
   optionalButtonText?: string;
-  optionalButtonAction?: () => void; 
+  optionalButtonAction?: () => void;  
 }
 
 export default function MyModal({
@@ -26,28 +26,33 @@ export default function MyModal({
   const [showSecondaryTitle, setShowSecondaryTitle] = useState(false);
   const modalBodyRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (modalBodyRef.current) {
-        const topPosition = modalBodyRef.current.scrollTop;
-        setShowSecondaryTitle(topPosition > 30);
-      }
-    };
 
-    const ref = modalBodyRef.current;
-    if (ref) {
-      ref.addEventListener('scroll', handleScroll);
+  const handleScroll = () => {
+    if (modalBodyRef.current) {
+      const topPosition = modalBodyRef.current.scrollTop;
+      setShowSecondaryTitle(topPosition > 30);
     }
+  
+  };
 
-    return () => {
-      if (ref) {
-        ref.removeEventListener('scroll', handleScroll);
-      }
-    };
+  const test = () => {
+    modalBodyRef.current?.addEventListener('scroll', handleScroll)
+  }
+
+  const test2 = () => {
+    if (modalBodyRef.current) {
+      modalBodyRef.current.removeEventListener('scroll', handleScroll);
+    }
+  }
+
+  useEffect(() => {
+
+    
   }, []);
 
+
   return (
-    <Transition appear show={isOpen} as={Fragment} key="Modal">
+    <Transition appear afterEnter={test} beforeLeave={test2} show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
         <Transition.Child
           as={Fragment}
@@ -115,7 +120,7 @@ export default function MyModal({
                     {showOptionalButton && (
                       <button
                         type="button"
-                        className="transition font-medium underline"
+                        className="transition font-medium underline hover:text-[#00809D] active:text-[#024251]"
                         onClick={optionalButtonAction}
                       >
                         {optionalButtonText}
