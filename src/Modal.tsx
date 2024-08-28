@@ -41,6 +41,7 @@ export default function MyModal({
 
   const test2 = () => {
     if (modalBodyRef.current) {
+      setShowSecondaryTitle(false)
       modalBodyRef.current.removeEventListener('scroll', handleScroll);
     }
   }
